@@ -1,0 +1,67 @@
+<template>
+    <lightning-button-group>
+        <lightning-button label="brand outline" variant="brandOutline"></lightning-button>
+        <lightning-button label="save" variant="neutral"></lightning-button>
+        <lightning-button label="success" variant="success" onclick={buttunHandler}></lightning-button>
+        
+    </lightning-button-group>
+    <lightning-button-menu>
+        <lightning-menu-item label="delete"></lightning-menu-item>
+        <lightning-menu-item label="save"></lightning-menu-item>
+    </lightning-button-menu>
+    <lightning-combobox name="progress" label="Status" value={value} placeholder="Select Progress" options={options} onchange={handleChange}>    
+    </lightning-combobox>
+    
+
+    
+<lightning-input
+    label="Select Favourite Color"
+    type="color"
+    placeholder="Color">
+</lightning-input>
+<lightning-input
+    label="Attach Profile"
+    type="file"
+    placeholder="Upload file"
+    accept=".doc,.docx,.pdf">
+</lightning-input>
+<lightning-input
+    label="Employee Date of Birth"
+    type="date"
+    placeholder="Date of Birth">
+</lightning-input>
+<lightning-input
+    label="Employee Password"
+    type="password"
+    placeholder="Password"
+    max-length="10">
+</lightning-input>
+<lightning-input
+    label="Employee Age"
+    type="number"
+    placeholder="Age">
+</lightning-input>
+<lightning-input
+    label="Address"
+    type="text"
+    placeholder="Enter Employee Address"
+    required="true">
+</lightning-input>
+<lightning-input
+    label="Employee Name"
+    type="text"
+    placeholder="Enter Employee Name">
+</lightning-input>
+<h1>{userName}</h1> 
+<lightning-input
+    label="Active"
+    type="checkbox-button"
+    placeholder="Date of Birth">
+</lightning-input>
+<lightning-input
+    label="Active"
+    type="Radio"
+    placeholder="select one">
+</lightning-input>
+
+</template>

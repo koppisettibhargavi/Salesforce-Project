@@ -1,0 +1,17 @@
+<apex:page controller="New_Dml">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Insert" Action="{!InsertFun}"/>
+            </apex:pageBlockButtons> 
+            <apex:pageBlockTable value="{!InsertList}" var="acc">
+                <apex:column value="{!acc.name}"/>
+                <apex:column value="{!acc.phone}"/>
+                <apex:column value="{!acc.rating}"/>
+                
+            </apex:pageBlockTable>
+            <!--<apex:outputLabel value="{!myMsgErr ? "Sucess" : "failed" }">
+            </apex:outputLabel>-->
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="contacts">
+    <template if:true={contact}>
+     <template for:each={contact} for:item="con">
+        <p key={con.Id}>
+            {con.Name}
+        </p>
+     </template>
+     <template if:true={error}>
+            <p class="slds-text-color_error">
+                Error loading accounts
+            </p>
+        </template>
+    </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,13 @@
+<apex:page controller="PageReference_Ex">
+    <h1>ssss
+        demo
+    </h1>
+    <apex:form >
+       <apex:pageBlock >
+     <apex:pageBlockSection > 
+    <apex:commandButton value="simple" action="{!simpleInterest}"/>
+    <apex:commandButton value="Interest" action="{!interest}"/>
+    </apex:pageBlockSection></apex:pageBlock>
+    </apex:form>
+    
+</apex:page>

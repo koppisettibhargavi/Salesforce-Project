@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningMessageChannel xmlns="http://soap.sforce.com/2006/04/metadata">
+    <isExposed>true</isExposed>
+    <masterLabel>bhargavi</masterLabel>
+    <description>this is lightningmessage</description>
+    <lightningMessageFields>
+    <fieldName>AccountId
+    </fieldName>
+    <description>this is accountid</description>
+    </lightningMessageFields>
+    <lightningMessageFields>
+    <fieldName>AccounName
+    </fieldName>
+    <description>this is accountid</description>
+    </lightningMessageFields>
+</LightningMessageChannel>

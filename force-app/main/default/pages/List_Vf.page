@@ -1,0 +1,22 @@
+<apex:page controller="ListPratice">
+    <apex:form >
+        <apex:pageBlock title="Accounts">
+            <apex:pageBlockTable value="{!list_1}" var="acc">
+                <apex:column value="{!acc.Name}"/>
+                <apex:column value="{!acc.Industry}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        <apex:pageBlock title="Accountset">
+            <apex:pageBlockTable value="{!set_list}" var="set1">
+                <apex:column value="{!set1.Name}"/>
+                <apex:column value="{!set1.Industry}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+        <apex:pageBlock title="AccountFirst_map">
+            <apex:pageBlockTable value="{!First_map}" var="key">
+                <apex:column value="{!key}"/>
+                <apex:column value="{!First_map[key]}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

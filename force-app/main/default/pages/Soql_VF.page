@@ -1,0 +1,14 @@
+<apex:page controller="newSoql">
+    <apex:form > 
+        <apex:pageBlock >
+            <apex:pageBlockButtons location="top">
+                <apex:commandButton value="Show Me" action="{!show}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockTable value="{!MySoqlList}" var="soql">
+                <apex:column value="{!soql.AccountNumber}"/>
+                <apex:column value="{!soql.Phone}"/>
+                <apex:column value="{!soql.Website}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

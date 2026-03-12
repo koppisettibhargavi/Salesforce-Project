@@ -1,0 +1,39 @@
+<apex:page >
+    <apex:form >
+      <apex:pageBlock title="pageBlock">
+          <apex:sectionHeader title="my page" subtitle="subtitle" help="hello"/>
+          <apex:pageBlockButtons location="bottom">
+              <apex:commandButton value="save"/>
+              <apex:commandButton value="edit"/>
+          </apex:pageBlockButtons>
+         <apex:pageBlockSection title="pagesectionBlock">
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel >Name</apex:outputLabel>
+                 <apex:inputText />
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel >Name</apex:outputLabel>
+                 <apex:inputText />
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel >Name</apex:outputLabel>
+                 <apex:inputText />
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel >Adress</apex:outputLabel>
+                 <apex:inputText />
+             </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection title="pagesectionBlock">
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel >Name</apex:outputLabel>
+                 <apex:inputText />
+             </apex:pageBlockSectionItem>
+             <apex:pageBlockSectionItem >
+                 <apex:outputLabel >Adress</apex:outputLabel>
+                 <apex:inputText />
+             </apex:pageBlockSectionItem>
+          </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

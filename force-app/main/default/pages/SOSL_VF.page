@@ -1,0 +1,29 @@
+<apex:page controller="MYSOQL_CLASS">
+   <apex:form >
+       <apex:pageBlock >
+           <!--<apex:inputText value="{!Choice}"/>-->
+           <apex:pageBlockButtons location="top">
+               <apex:commandButton value="ParentData" action="{!Parent_to_Child_Fun}"/>
+               <apex:commandButton value="ChildData" action="{!Child_to_Parent_Fun}"/>
+           </apex:pageBlockButtons>
+       </apex:pageBlock>
+       <apex:pageBlock >
+           <apex:pageBlockTable value="{!Parent_to_Child}" var="ML">
+               <apex:column value="{!ML.id}"/>
+               <apex:column value="{!ML.name}"/>
+               <apex:column >
+                 <apex:pageBlockTable value="{!ML.Contacts}" var="con">
+                     <apex:column value="{!con.ID}"/>
+                     <apex:column value="{!con.name}"/>
+                   </apex:pageBlockTable>  
+               </apex:column>
+           </apex:pageBlockTable>
+       </apex:pageBlock>
+       <apex:pageBlock >
+           <apex:pageBlockTable value="{!Child_to_Parent}" var="cp">
+               <apex:column value="{!cp.Account.id}"/>
+               <apex:column value="{!cp.Account.name}"/>
+           </apex:pageBlockTable>
+       </apex:pageBlock>
+    </apex:form>
+</apex:page>

@@ -1,0 +1,11 @@
+<template>
+    <h1>{searchdata2}</h1>
+    <lightning-card>
+        <h1>{textchild}</h1>
+        <h1>{currentId}</h1>
+        <h1>{currentName}</h1>
+        <div style="height:300px">
+        <lightning-datatable title="datatable" key-field="Id" data={accountRecordData} columns={cols} hide-checkbox-column="true" onrowaction={handleViewButton}></lightning-datatable>
+        </div>
+    </lightning-card>
+</template>

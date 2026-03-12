@@ -1,0 +1,11 @@
+<template>
+    <h1>life cycle hooks</h1>
+    <lightning-input type="checkbox" onchange={changeHandler}></lightning-input>
+   
+    <template lwc:if={displaychild}>
+        <lightning-card>
+        <c-lifecyclehookschild></c-lifecyclehookschild>
+        </lightning-card>
+    </template>
+
+</template>

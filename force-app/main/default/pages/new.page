@@ -1,0 +1,27 @@
+<apex:page Controller="SimpleInterest_Apex">
+    <apex:form id="pd">
+       <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlock dir="center">
+            <h1 style="color:red">
+                Loan Calculator
+            </h1> <br/>
+            Annual Interest:<apex:inputText value="{!AnnualInterest}" title="Amount" style="margin:10px" />
+            <br/>
+           Years:<apex:inputText value="{!Years}" title="Amount" style="margin:10px"/><br/>
+           Amount:<apex:inputText value="{!Amount}" title="Amount" style="margin:10px"/><br/>
+            <apex:commandButton value="Compute" action="{!GetInterest}" style="margin:10px; height:30px;"/>
+            <apex:commandButton value="Reset" action="{!Reset}" reRender="pd" style="margin:10px; height:30px;"/>
+            <br/>
+            <h1 style="border-width:2px; border-style:solid; border-color:black; padding:10px;width:200px"> 	
+                Monthly Payment
+            </h1>
+            <apex:inputText value="{!MonthlyPayment}" style="margin:10px"/>
+            <h1 style="border-width:2px; border-style:solid; border-color:black; padding:10px;width:200px"> 	
+                Total Payment
+            </h1>
+            <apex:inputText value="{!TotalPayment}" style="margin:10px"/>
+        </apex:pageBlock>
+        
+    </apex:form>
+    
+</apex:page>

@@ -1,0 +1,22 @@
+<template>
+    <lightning-card>
+        <h1>Accounts</h1>
+    </lightning-card>
+    <lightning-card title="Account List">
+
+        <template if:true={accounts}>
+            <template for:each={accounts} for:item="acc">
+                <p key={acc.Id}>
+                    {acc.Name} — {acc.Industry}
+                </p>
+            </template>
+        </template>
+
+        <template if:true={error}>
+            <p class="slds-text-color_error">
+                Error loading accounts
+            </p>
+        </template>
+
+    </lightning-card>
+</template>

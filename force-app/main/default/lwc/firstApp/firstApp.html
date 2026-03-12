@@ -1,0 +1,18 @@
+<template>
+    <lightning-input label="firstNume" value={firstNum} onchange={handleChangefirst}></lightning-input>
+    
+        <lightning-input label="decexample" value={userPassword} onchange={handleDecorators}>
+        </lightning-input>
+        <div>name..{userPassword}</div>
+   
+    <lightning-input label="secondNume" value={secondNum} onchange={handleChangesecond}></lightning-input>
+    
+    <lightning-button-group>
+        <lightning-button label="Add" onclick={handleChangeAdd}></lightning-button>
+        <lightning-button label="Sub" onclick={handleChangeSub}></lightning-button>
+        <lightning-button label="Mul" onclick={handleChangeMul}></lightning-button>
+        <lightning-button label="Div" onclick={handleChangeDiv}></lightning-button>
+    </lightning-button-group>
+    <lightning-input label="result" value={result} readonly></lightning-input>
+    <lightning-input type="checkbox" label="check" value={check} onchange={handleCheck}></lightning-input>
+</template>

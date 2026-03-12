@@ -1,0 +1,8 @@
+<template>
+    <h1>Parent Component</h1>
+    <p>Parent Value: {valfromparent}</p>
+    <lightning-card>
+        <lightning-input type="text" val={valfromparent} onchange={handleChange}></lightning-input>
+        <c-child childmsg={valfromparent} namemsg={name} accountdatamsg={account_data}></c-child>
+    </lightning-card>
+</template>
