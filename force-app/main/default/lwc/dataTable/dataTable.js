@@ -1,72 +1,99 @@
-import { LightningElement, wire,track,api } from 'lwc';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import getdatatable from '@salesforce/apex/DataTable.getdataTable';
-const COLS= [
-    { label: 'StdName', fieldName: 'Name', type: 'url',editable:true },
-    { label: 'Industry', fieldName: 'Industry', type: 'text',editable:true },
-    { label: 'Phone', fieldName: 'Phone', type: 'phone',editable:true},
-    { label:'Email',fieldName:'email__c',type: 'email',editable:true}
-];
-export default class DataTable extends LightningElement {
-    draftvalues=[];
-    @api contactrefreshprope;
-    @track dataTableData=[];
-    @api columns_1=COLS;
-    error_s;
+import { LightningElement,track} from 'lwc';
+import getAccount from '@salesforce/apex/Datableclass.getAccount';
+import { NavigationMixin } from "lightning/navigation";
+export default class DataTable extends NavigationMixin(LightningElement) {
+    @track actions = [
+    { label: 'Show details', name: 'show_details' },
+    { label: 'Delete', name: 'delete' },
+]
+   @track colscol= [
+    { label: 's.no', fieldName: 'rowNum'},
+    { label: 'Account Name', fieldName: 'Nameurl', type: 'url',
+        typeAttributes:{
+            label:{fieldName: 'Name'},
+            target:'_blank',
+        }
+    },
+    { label: 'Industry', fieldName: 'Industry', type: 'text'},
+    { label: 'Phone', fieldName: 'Phone', type: 'phone'},
+    { label:'Rating',fieldName:'Rating',type: 'text'},{
+        type: 'action',
+        typeAttributes: { rowActions: this.actions },
+    },
+   ];
+   isLoad=false;
+   @track dataTableData=[];
+   connectedCallback(){
+        //this.getData(); //get execute when page got refreshed
+   }
+
+   get labelname(){
+       return this.isLoad?'UnLoad':'LoadData';
+   }
+   clickfun(){
+    this.isLoad=!this.isLoad;
+    //alert(this.isLoad);
+    if(this.isLoad){
+        this.getData();
+    }
+    else{
+        this.records=[];
+    }
+   
     
-    @wire (getdatatable) 
-    wiredcontacts({result}){
-        console.log('result:'+result);
-        this.contactrefreshprope=result;
-        
-        if(result.data){
-            this.dataTableData=this.data;
-            console.log(this.dataTableData);}
-        else if(result.error){
-            console.log(this.result.error);
+    
+   }
+   handleRowAction(event) {
+        const actionName = event.detail.action.name;
+        const row = event.detail.row;
+        switch (actionName) {
+            case 'delete':
+                this.deleteRow(row);
+                break;
+            case 'show_details':
+                this.showRowDetails(row);
+                break;
+            default:
         }
     }
-    getmsg(){
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: 'Records fetched successfully',
-                variant: 'success',
-                mode:'sticky'
-            })
-        );
+   deleteRow(row) {
+        console.log("deleteDataConnector",JSON.stringify(row));
     }
-    
+    navigateToRecordViewPage(rowId) {
+            // View a custom object record.
+            this[NavigationMixin.Navigate]({
+              type: "standard__recordPage",
+              attributes: {
+                recordId: rowId,
+                //objectApiName: "namespace__ObjectName", // objectApiName is optional
+                actionName: "view",
+              },
+            });
+          }
 
-  async savehandler(event){
-
-    // Get draft values (edited rows)
-    let records = event.detail.draftValues;
-
-    // Prepare records for update
-    let updateRecordsArray = records.map(currItem => {
-        let fieldInput = { ...currItem };
-        return { fields: fieldInput };
-    });
-
-    
-
-    // Call updateRecord for each record
-    let updateRecordsArrayPromise = updateRecordsArray.map(currItem =>
-        updateRecord(currItem)
-    );
-
-    await Promise.all(updateRecordsArrayPromise);
-    
-    // Clear draft values
-    this.draftValues = [];
-    // Success toast
-    const toastEvent = new ShowToastEvent({
-        title: "Success",
-        message: "Records Updated Successfully",
-        variant: "success"
-    });
-    this.dispatchEvent(toastEvent);
-    await refreshApex(this.contactrefreshprope);
+    showRowDetails(row) {
+        this.record = row;
+        console.log('record',JSON.stringify(row));
+        this.navigateToRecordViewPage(row.Id);
     }
+
+   
+
+   
+
+   records = [];
+   lastId = null;
+   getData(){
+        
+        getAccount({ lastRecordId: this.lastId })
+            .then(result => {
+                this.records = [...this.records, ...result];
+                if(result.length > 0){
+                    this.lastId = result[result.length - 1].Id;
+                }
+        });
+       
+   }
+       
+
 }

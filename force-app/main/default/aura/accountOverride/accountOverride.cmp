@@ -1,0 +1,25 @@
+<aura:component implements="force:appHostable,
+                            force:hasRecordId,
+                            force:hasSObjectName,
+                            lightning:actionOverride,
+                            lightning:hasPageReference,
+                            flexipage:availableForAllPageTypes"
+                access="global">
+
+    <aura:attribute name="pageReference" type="Object"/>
+    <aura:attribute name="recordId" type="String"/>
+    <aura:attribute name="objectApiName" type="String"/>
+
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+
+    <aura:handler name="change" value="{!v.pageReference}" action="{!c.doInit}"/>
+    <aura:if isTrue="{!NOT(empty(v.objectApiName))}">
+    
+        <c:opportunityCreateForm
+            record-id="{!v.recordId}"
+            object-api-name="{!v.objectApiName}">
+        </c:opportunityCreateForm>
+
+   </aura:if>
+</aura:component>

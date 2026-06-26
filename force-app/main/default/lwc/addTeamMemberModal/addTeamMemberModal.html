@@ -1,0 +1,69 @@
+<template>
+    <!-- Modal Header Section -->
+    <lightning-modal-header title="Add a Team Member"></lightning-modal-header>
+    
+    <!-- Modal Form Body Section -->
+    <lightning-modal-body>
+        <div class="slds-form slds-form_stacked slds-var-p-around_medium">
+            <!-- 1. User Name Field (Read-Only) -->
+            <div class="slds-form-element slds-var-m-bottom_medium">
+                <lightning-input 
+                    type="text" 
+                    label="User Name" 
+                    value={userName}
+                    disabled>
+                </lightning-input>
+            </div>
+
+            <!-- 2. Initiative Field (Read-Only) -->
+            <div class="slds-form-element slds-var-m-bottom_medium">
+                <lightning-input 
+                    type="text" 
+                    label="Initiative" 
+                    value={initiativeName}
+                    disabled>
+                </lightning-input>
+            </div>
+
+            <!-- 3. Discipline Picklist Configuration -->
+            <div class="slds-form-element slds-var-m-bottom_medium">
+                <lightning-combobox
+                    name="discipline"
+                    label="Discipline"
+                    value={disciplineValue}
+                    placeholder="Select Discipline"
+                    options={disciplineOptions}
+                    onchange={handleDisciplineChange}
+                    required>
+                </lightning-combobox>
+            </div>
+
+            <!-- 4. Resource Time Allocation Field -->
+            <div class="slds-form-element slds-var-m-bottom_medium">
+                <lightning-input 
+                    type="number" 
+                    label="Resource Time Allocation (%)" 
+                    value={allocationPercentage}
+                    min="0"
+                    max="100"
+                    onchange={handleAllocationChange}
+                    required>
+                </lightning-input>
+            </div>
+        </div>
+    </lightning-modal-body>
+
+    <!-- Modal Footer Control Action Buttons -->
+    <lightning-modal-footer>
+        <lightning-button 
+            label="Cancel" 
+            onclick={handleCancel} 
+            class="slds-var-m-right_x-small">
+        </lightning-button>
+        <lightning-button 
+            label="Save" 
+            variant="brand" 
+            onclick={handleSave}>
+        </lightning-button>
+    </lightning-modal-footer>
+</template>

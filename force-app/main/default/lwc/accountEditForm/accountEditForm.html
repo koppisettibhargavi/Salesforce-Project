@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Edit Account">
+
+        <div class="slds-p-around_medium">
+
+            <lightning-input 
+                label="Account Name"
+                value={name}
+                onchange={handleName}>
+            </lightning-input>
+
+            <lightning-input 
+                label="Phone"
+                value={phone}
+                onchange={handlePhone}>
+            </lightning-input>
+
+            <lightning-combobox
+                label="Industry"
+                value={industry}
+                options={industryOptions}
+                onchange={handleIndustry}>
+            </lightning-combobox>
+
+            <br/>
+
+            <lightning-button 
+                label="Update"
+                variant="brand"
+                onclick={handleUpdate}>
+            </lightning-button>
+
+        </div>
+
+    </lightning-card>
+</template>

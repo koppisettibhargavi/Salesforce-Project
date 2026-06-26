@@ -1,0 +1,57 @@
+<template>
+
+    <lightning-card title="PlanBasedFields">
+      <div class="slds-grid slds-gutters">
+        
+       <div class="slds-col slds-size_4-of-3 slds-m-left_medium">
+          <lightning-card title="View Plans">
+              <h1>ActivePlane:{selectedPlan}</h1>
+             
+              <div class="custom-picklist">
+
+                 <!-- Label -->
+                <label class="slds-form-element__label">Plan type</label>
+
+                    <div class="slds-combobox_container">
+                         <div class={dropdownClass}>
+
+                             <!-- Input (trigger) -->
+                              <div class="slds-combobox__form-element" onclick={toggleDropdown}>
+                                   <input class="slds-input" readonly placeholder="View Plans"/>
+                              </div>
+
+                             <!-- Dropdown -->
+                            <div class="slds-dropdown slds-dropdown_length-5 slds-dropdown_fluid">
+                                 <ul class="slds-listbox slds-listbox_vertical">
+
+                                     <template for:each={remainingPlans} for:item="plan">
+                                             <li key={plan.value} class="slds-listbox__item">
+                                                    <div class="slds-media slds-listbox__option slds-listbox__option_plain">
+                                                         <span class="slds-truncate">{plan.label}</span>
+                                                    </div>
+                                              </li>
+                                    </template>
+                                    </ul>
+                            </div>
+
+                         </div>
+                    </div>
+
+                </div>
+             </lightning-card>
+        </div>
+        <div class="slds-border_right slds-m-horizontal_medium" style="height:500px;"></div>
+        <div class="slds-col slds-size_2-of-3">
+           <lightning-card title="View Active Plan Details">
+    
+            <lightning-record-form
+                object-api-name={objectApiName} record-id={recordId} fields={fieldsPlaceHolders} mode="readonly">
+         
+           </lightning-record-form>
+           </lightning-card>
+        </div>
+    
+       </div>
+    </lightning-card>
+    
+</template>

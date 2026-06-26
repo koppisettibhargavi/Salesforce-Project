@@ -1,0 +1,28 @@
+<template>
+
+    <lightning-card title="Transfer Team Member">
+
+        <div class="slds-p-around_medium">
+
+            <!-- User dropdown -->
+            <lightning-combobox
+                label="Select User"
+                value={selectedUserId}
+                options={userOptions}
+                onchange={handleUserChange}>
+            </lightning-combobox>
+
+            <br/>
+
+            <!-- Transfer button -->
+            <lightning-button
+                label="Transfer"
+                variant="brand"
+                onclick={handleTransfer}>
+            </lightning-button>
+
+        </div>
+
+    </lightning-card>
+
+</template>

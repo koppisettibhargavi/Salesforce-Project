@@ -1,0 +1,232 @@
+<template>
+
+    <lightning-card>
+
+        <!-- HEADER -->
+
+        <div class="slds-p-around_medium">
+
+            <div class="slds-col slds-m-right_medium">
+
+                <div class="slds-col slds-size_1-of-2 slds-text-align_end slds-m-top_large">
+
+                    <lightning-button
+                        label="New Initiative"
+                        variant="brand">
+                    </lightning-button>
+                    
+
+                    <lightning-button
+                        label="Import"
+                        class="slds-m-left_small"
+                        onclick={openImportWizard}>
+                    </lightning-button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- TABS -->
+
+        <lightning-tabset>
+
+            <lightning-tab label="My Initiatives">
+
+                <!-- FILTERS -->
+                 
+
+                <div class="slds-p-around_medium">
+
+                    <div class="slds-grid slds-wrap slds-gutters">
+
+                        <!-- Search Initiative -->
+
+                        <div class="slds-col slds-size_1-of-5">
+
+                            <lightning-input
+                                type="search"
+                                label="Search Initiative"
+                                value={searchText}
+                                onchange={handleSearch}>
+                            </lightning-input>
+                             
+                               <template for:each={records} for:item="rec">
+                                    <p key={rec.Id}>{rec.Name}</p>
+                               </template>
+
+                        </div>
+
+                        <!-- Role -->
+
+                        <div class="slds-col slds-size_1-of-5">
+
+                            <lightning-combobox
+                                label="Where My Role Is"
+                                value={selectedRole}
+                                options={roleOptions}
+                                onchange={handleRoleChange}>
+                            </lightning-combobox>
+
+                        </div>
+
+                        <!-- Only Show -->
+
+                        <div class="slds-col slds-size_1-of-5">
+
+                            <lightning-combobox
+                                label="Only Show"
+                                value={selectedShow}
+                                options={showOptions}
+                                onchange={handleShowChange}>
+                            </lightning-combobox>
+
+                        </div>
+
+                        <!-- Status -->
+
+                        <div class="slds-col slds-size_1-of-5">
+
+                            <lightning-combobox
+                                label="Overall Status"
+                                value={selectedStatus}
+                                options={statusOptions}
+                                onchange={handleStatusChange}>
+                            </lightning-combobox>
+
+                        </div>
+
+                        <!-- Display Records -->
+
+                        <div class="slds-col slds-size_1-of-5">
+
+                            <br/>
+
+                            <lightning-button
+                                variant="brand"
+                                label="Display Records"
+                                onclick={loadRecords}>
+                            </lightning-button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- SECOND FILTER ROW -->
+
+                <div class="slds-p-horizontal_medium">
+
+                    <div class="slds-grid slds-wrap slds-gutters">
+
+                        <!-- Toggle -->
+
+                        <div class="slds-col slds-size_1-of-4">
+
+                            <lightning-input
+                                type="toggle"
+                                label="Confidential Initiatives Hidden"
+                                checked={hideConfidential}
+                                onchange={handleToggle}>
+                            </lightning-input>
+
+                        </div>
+
+                        <!-- Display List -->
+
+                        <div class="slds-col slds-size_1-of-4">
+
+                            <lightning-combobox
+                                label="Display List"
+                                value={pageSize}
+                                options={pageSizeOptions}
+                                onchange={handlePageSize}>
+                            </lightning-combobox>
+
+                        </div>
+
+                        <!-- Owner Lookup -->
+
+                        <div class="slds-col slds-size_1-of-4">
+
+                            <lightning-record-picker
+                                label="Owner"
+                                object-api-name="User"
+                                onchange={handleOwnerChange}>
+                            </lightning-record-picker>
+
+                        </div>
+
+                        <!-- Export -->
+
+                        <div class="slds-col slds-size_1-of-4">
+
+                            <br/>
+
+                            <lightning-button-icon
+                                icon-name="utility:download"
+                                alternative-text="Export"
+                                onclick={exportCSV}>
+                            </lightning-button-icon>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- LEGEND -->
+
+               <div class="slds-p-around_medium">
+
+                    <span class="red-box"></span>
+                    Overdue/Missing
+
+                    <span class="yellow-box slds-m-left_medium"></span>
+                    Coming Due
+
+                    <span class="blue-box slds-m-left_medium"></span>
+                    Pending Approval
+
+                </div>
+
+                <!-- TABLE -->
+
+                <!--<div class="slds-p-around_medium">
+
+                    <lightning-datatable
+                        key-field="Id"
+                        data={initiatives}
+                        columns={columns}>
+                    </lightning-datatable>
+
+                </div>-->
+
+            </lightning-tab>
+
+            <lightning-tab label="My Actions">
+            </lightning-tab>
+
+            <lightning-tab label="My Approvals">
+            </lightning-tab>
+
+            <lightning-tab label="Advanced Filters">
+            </lightning-tab>
+
+        </lightning-tabset>
+
+         
+
+    </lightning-card>
+
+    <!-- IMPORT MODAL -->
+
+
+    <template if:true={showImportWizard}>
+
+        <c-import-wizard onclosewizard={handleCloseWizardModal}></c-import-wizard>
+    </template>
+
+</template>

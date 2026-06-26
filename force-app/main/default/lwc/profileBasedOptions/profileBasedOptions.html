@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Opportunity Details">
+
+        <!-- Status Picklist -->
+        <lightning-combobox
+            label="Custom Status"
+            value={selectedStatus}
+            options={statusOptions}
+            onchange={handleStatusChange}>
+        </lightning-combobox>
+
+        <!-- Amount -->
+        <lightning-input
+            type="number"
+            label="Amount"
+            value={amount}
+            onchange={handleAmountChange}>
+        </lightning-input>
+
+        <!-- Stage -->
+        <lightning-input
+            type="text"
+            label="Stage"
+            value={stage}
+            onchange={handleStageChange}>
+        </lightning-input>
+
+        <!-- Close Date -->
+        <lightning-input
+            type="date"
+            label="Close Date"
+            value={closeDate}
+            onchange={handleDateChange}>
+        </lightning-input>
+
+        <!-- Save Button -->
+        <lightning-button
+            label="Save"
+            variant="brand"
+            onclick={handleSave}>
+        </lightning-button>
+
+    </lightning-card>
+</template>

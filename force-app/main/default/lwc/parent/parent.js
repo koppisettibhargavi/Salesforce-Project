@@ -11,4 +11,8 @@ export default class Parent extends LightningElement {
     handleChange(event){
         this.valfromparent=event.target.value;
     }  
+    @track num=10;
+    handleadd(){
+        this.template.querySelector('c-child').clickaddfun();
+    }
 }

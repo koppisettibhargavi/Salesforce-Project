@@ -1,0 +1,22 @@
+<template>
+    <lightning-card>
+        <div class="slds-box">
+    <h1>i am child</h1>
+     <div class="slds-box">
+        <lightning-input type='text' label="firstName" value={fname} onchange={handlefirstName}></lightning-input>
+        <lightning-input type='text' label="lastName" value={lname} onchange={handlelastName}></lightning-input>
+        <lightning-button label="submit" onclick={handlesubmitevent}></lightning-button>
+        <lightning-button label="clear" onclick={handleclearevent}></lightning-button>
+        
+    </div>
+    <lightning-button label='add' onclick={addcustomEvent}></lightning-button>
+    <lightning-button label='sub' onclick={subcustomEvent}></lightning-button>
+    <lightning-button label='mul' onclick={mulcustomEvent}></lightning-button>
+    <lightning-button label='mul with 10' data-factor='10' onclick={mulcustomEventhandle10}></lightning-button>
+    <template for:each={array} for:item='a'>
+       <lightning-button label={a} key={a} data-factor={a} onclick={mulcustomEventhandle}></lightning-button>
+    </template>
+     <c-subchildpage onmultiply={mulcustomEventhandle100}></c-subchildpage>
+     </div>
+    </lightning-card>
+</template>

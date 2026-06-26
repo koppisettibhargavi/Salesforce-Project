@@ -1,0 +1,112 @@
+<template>
+   <!---<template if:true={objectApiName}> -->
+    <h1>profile :{profileName}</h1>
+    
+     <lightning-card>
+    
+    <lightning-record-edit-form
+        object-api-name={objectApiName} record-id={recordId}>
+
+        <template for:each={fields} for:item="field">
+            <h1 key={field}>{field}</h1>
+            <lightning-input-field
+                key={field}
+                field-name={field}>
+            </lightning-input-field> 
+        
+        </template>
+
+        <lightning-button
+            type="submit"
+            label="Save"
+            onclick={handleSuccessevent}>
+        </lightning-button>
+       
+    </lightning-record-edit-form>
+
+      <c-data-table-with-search record-id={recordId} object-api-name={objectApiName}></c-data-table-with-search>
+    </lightning-card>
+    <!---</template>-->
+    <!--<template if:true={isstandarduser}>
+    <lightning-card title="Create Account">
+
+        <div class="slds-p-around_medium">
+            
+            <lightning-input 
+                label="Account Name"
+                value={name}
+                onchange={handleName}>
+            </lightning-input>
+
+            <lightning-input 
+                label="Phone"
+                value={phone}
+                onchange={handlePhone}>
+            </lightning-input>
+            
+
+            <lightning-combobox
+                label="Industry"
+                value={industry}
+                options={industryOptionsfromprofile}
+                onchange={handleIndustry}>
+            </lightning-combobox>
+
+            <br/>
+
+            <lightning-button 
+                label="Save"
+                variant="brand"
+                onclick={handleSave}>
+            </lightning-button>
+
+        </div>
+
+    </lightning-card>
+    </template>
+
+    <template if:true={issystemadmin}>
+    <lightning-card title="Create Account">
+
+        <div class="slds-p-around_medium">
+            
+            <lightning-input 
+                label="Account Name"
+                value={name}
+                onchange={handleName}>
+            </lightning-input>
+             
+            <lightning-input 
+                label="Phone"
+                value={phone}
+                onchange={handlePhone}>
+            </lightning-input>
+            <lightning-input 
+                label="Fax"
+                value={fax}
+                onchange={handleFax}>
+            </lightning-input>
+            <lightning-combobox
+                label="Industry"
+                value={industry}
+                options={industryOptionsfromprofile}
+                onchange={handleIndustry}>
+            </lightning-combobox>
+
+            <br/>
+
+            <lightning-button 
+                label="Save"
+                variant="brand"
+                onclick={handleSave}>
+            </lightning-button>
+
+        </div>
+
+    </lightning-card>
+    </template>
+    <div style="padding:20px; border:2px solid red;">
+        <h1>LWC IS WORKING</h1>
+    </div>-->
+
+</template>

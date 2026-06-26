@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="paginationTable">
+    
+    <lightning-datatable key-field="Id" data={accounts} columns={columnvals} onsave={handlesave} draft-values={savedDrafValues} onrowaction={handleRowAction}></lightning-datatable>
+    
+    <lightning-button label='next' onclick={handleNext}></lightning-button>
+    <lightning-button label='previous' onclick={handlePre}></lightning-button>
+    <lightning-button label='refresh' onclick={handleRefresh}></lightning-button>
+    <template if:true={showContacts}>
+        <c-data-table-with-search record-id={recordId}></c-data-table-with-search>
+    </template>
+    <template if:false={accounts.length}>
+       <p>No records to display</p>
+   </template>
+   
+   </lightning-card>
+</template>

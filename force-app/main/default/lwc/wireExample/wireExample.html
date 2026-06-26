@@ -1,0 +1,13 @@
+<template>
+    <lightning-card>
+        <h1>wire</h1>
+        <input type="text" onchange={getkey} value={accountkey}></input>
+        <template for:each={AccData.data} for:item="acc">
+           <div key={acc.Id}>
+              {acc.Name}-
+              {acc.Industry}
+           </div>
+        </template>
+    </lightning-card>
+   
+</template>

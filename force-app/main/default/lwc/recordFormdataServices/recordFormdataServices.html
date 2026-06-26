@@ -1,0 +1,16 @@
+<template>
+    <lightning-card>
+    <h1>view</h1>
+    <lightning-record-form title="view" record-id="001gL00000Tgjo1QAB" object-api-name="Account" layout-type="Full" mode="view" columns="4">
+    </lightning-record-form>
+    <h1>edit</h1>
+    <lightning-record-form title="edit" record-id={recordId} object-api-name={objectApiName} layout-type="Full" mode="edit" columns="4"></lightning-record-form>
+    <h1>create</h1>
+    <lightning-record-form title="create"  object-api-name={objectApiName} layout-type="Full" mode="edit" columns="4"></lightning-record-form>
+    <h1>editwithfields</h1>
+    <lightning-record-form title="create with fields" record-id={recordId} object-api-name={objectApiName} fields={fieldsdata} mode="edit" columns="4"></lightning-record-form>
+    <h1>withschemafields</h1>
+    <lightning-record-form title="create withschemafields" record-id={recordId} object-api-name={objectApiName} fields={fieldsdatafromschema} mode="edit" columns="4"></lightning-record-form>
+   </lightning-card>
+
+</template>

@@ -1,0 +1,14 @@
+<template>
+    <lightning-card>
+    <div class="slds-box">
+    <h1>i am parent</h1>
+    <h1>{num}</h1>
+    <h1>firstName:{firstName}</h1>
+    <h1>lastName:{lastName}</h1>
+    <lightning-datatable key-field="Id" data={datalist} columns={colscol}   hide-checkbox-column></lightning-datatable>
+
+    <c-child-page onaddcustom={AddFun} onsubcustom={SubFun} onmulcustom={MulFun} onmulcustomhandle={MulFunhandle} onmulfunhandle10={MulFunhandle10} ></c-child-page>
+    <c-subchildpage onmulcustom100={MulFunhandle100}></c-subchildpage>
+   </div>
+    </lightning-card>
+</template>

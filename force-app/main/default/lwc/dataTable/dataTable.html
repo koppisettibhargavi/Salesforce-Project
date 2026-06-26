@@ -1,6 +1,6 @@
 <template>
     <h1>datatable</h1>
-    <lightning-button label="i am msg" onclick={getmsg}></lightning-button>
-    <lightning-datatable key-field="Id" data={dataTableData} columns={columns_1}
-    draft-value={draftvalues}></lightning-datatable>
+    <lightning-button label={labelname} onclick={clickfun}></lightning-button>
+    <lightning-datatable key-field="Id" data={records} columns={colscol} enable-infinite-loadings  hide-checkbox-column onrowaction={handleRowAction}></lightning-datatable>
+    
 </template>

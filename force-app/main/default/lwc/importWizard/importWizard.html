@@ -1,0 +1,436 @@
+<template>
+    <!-- Modal Backdrop -->
+    <div class="slds-backdrop slds-backdrop_open"></div>
+
+    <!-- Modal Dialog -->
+    <section role="dialog" tabindex="-1" aria-modal="true" class="slds-modal slds-fade-in-open slds-modal_medium">
+        <div class="slds-modal__container">
+            
+            <!-- Modal Header -->
+            <header class="slds-modal__header slds-theme_default slds-p-around_medium">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCancel}>
+                    <lightning-icon icon-name="utility:close" alternative-text="close" variant="brand" size="small"></lightning-icon>
+                </button>
+                <div class="slds-media slds-media_center">
+                    <div class="slds-media__figure">
+                        <lightning-icon icon-name="utility:upload" size="small" alternative-text="Import"></lightning-icon>
+                    </div>
+                    <div class="slds-media__body slds-text-align_left">
+                        <h2 class="slds-text-heading_medium slds-hyphenate slds-font-weight_bold">Import Wizard</h2>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Modal Body (Includes Progress Path & Content) -->
+            <div class="slds-modal__content slds-p-around_large" id="modal-content-id-1">
+                
+                <!-- SLDS Path / Progress Indicator -->
+                <div class="slds-path slds-m-bottom_large">
+                    <div class="slds-path__track">
+                        <div class="slds-path__scroller_container">
+                            <div class="slds-path__scroller">
+                                <div class="slds-path__scroller_inner">
+                                    <ul class="slds-path__nav" role="listbox" aria-orientation="horizontal">
+                                        <!-- Step 1 -->
+                                        <li class={step1Class} role="presentation">
+                                            <a class="slds-path__link" href="#" role="option" tabindex="0">
+                                                <span class="slds-path__title">Choose Mode</span>
+                                            </a>
+                                        </li>
+                                        <!-- Step 2 -->
+                                        <li class={step2Class} role="presentation">
+                                            <a class="slds-path__link" href="#" role="option" tabindex="-1">
+                                                <span class="slds-path__title">Select Source</span>
+                                            </a>
+                                        </li>
+                                        <!-- Step 3 -->
+                                        <li class={step3Class} role="presentation">
+                                            <a class="slds-path__link" href="#" role="option" tabindex="-1">
+                                                <span class="slds-path__title">Target & Confirm</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 1 Content: Choose Mode -->
+                <template if:true={isStep1}>
+                    <fieldset class="slds-form-element">
+                        <legend class="slds-form-element__legend slds-form-element__label slds-text-heading_small slds-font-weight_bold slds-m-bottom_medium">
+                            Choose an import mode
+                            <lightning-icon icon-name="utility:info" size="xx-small" class="slds-m-left_xx-small" alternative-text="Info"></lightning-icon>
+                        </legend>
+                        <div class="slds-form-element__control">
+                            <span class="slds-radio slds-m-bottom_small">
+                                <input type="radio" id="radio-single" value="single" name="importMode" checked={isSingleMode} onchange={handleModeChange} />
+                                <label class="slds-radio__label" for="radio-single">
+                                    <span class="slds-radio_faux"></span>
+                                    <span class="slds-form-element__label">Single/Multiple Record Update</span>
+                                </label>
+                            </span>
+                            <span class="slds-radio">
+                                <input type="radio" id="radio-bulk" value="bulk" name="importMode" checked={isBulkMode} onchange={handleModeChange} />
+                                <label class="slds-radio__label" for="radio-bulk">
+                                    <span class="slds-radio_faux"></span>
+                                    <span class="slds-form-element__label">Bulk Record Upload</span>
+                                </label>
+                            </span>
+                        </div>
+                    </fieldset>
+                </template>
+
+                <!-- Step 2 Content: Select Source Placeholder -->
+                <template if:true={isStep2}>
+                                    <!-- SECTION C: STEP 2 - SELECT ACTION & CHOOSE USER CONTEXT -->
+                
+                    <div class="slds-form slds-form_stacked fade-in-animation">
+                        
+                        <!-- Form Element Item 1: Dropdown Action Input -->
+                        <div class="slds-form-element slds-m-bottom_medium">
+                            <label class="slds-form-element__label slds-text-title_bold" for="actionSelect">
+                                Choose an action
+                                <lightning-helptext content="Select the action you want to apply to your import context."></lightning-helptext>
+                            </label>
+                            <div class="slds-form-element__control">
+                                <lightning-combobox
+                                    id="actionSelect"
+                                    name="action"
+                                    value={selectedAction}
+                                    options={actionOptions}
+                                    onchange={handleActionChange}
+                                    variant="label-hidden">
+                                </lightning-combobox>
+                            </div>
+                        </div>
+
+                        <!-- Form Element Item 2: Searchable User Lookup Box Container -->
+                        <div class="slds-form-element">
+                            <label class="slds-form-element__label slds-text-title_bold">
+                                Select the source user
+                                <lightning-helptext content="Search for a specific employee context matching your dataset."></lightning-helptext>
+                            </label>
+                            
+                            <div class="slds-form-element__control">
+                                <div class="slds-combobox_container">
+                                    <div class={dropdownTriggerClass} aria-expanded={isDropdownOpen} aria-haspopup="listbox" role="combobox">
+                                        
+                                        <!-- Search Input Value Bar -->
+                                        <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                                            <lightning-input 
+                                                type="search"
+                                                variant="label-hidden"
+                                                placeholder="Search Users..."
+                                                value={searchKey}
+                                                onchange={handleSearchChange}
+                                                onfocus={handleInputFocus}
+                                                onblur={handleInputBlur}>
+                                            </lightning-input>
+                                        </div>
+
+                                        <!-- Dropdown Panel Matching Selection Results Card Overlay -->
+                                        <template if:true={showDropdown}>
+                                           <div class="slds-dropdown slds-dropdown_length-with-icon_5 slds-dropdown_fluid" role="listbox">
+                                            <ul class="slds-listbox slds-listbox_vertical" role="presentation">
+                                                <template if:true={hasRecords}>
+                                                    <template for:each={filteredUsers} for:item="user">
+                                                        <li key={user.email} role="presentation" class="slds-listbox__item" onmousedown={handleUserSelection} data-name={user.name}>
+                                                            
+                                                                <span class="slds-media__figure slds-listbox__option-icon">
+                                                                    <lightning-icon icon-name="standard:user" size="small"></lightning-icon>
+                                                                </span>
+                                                                <span class="slds-media__body">
+                                                                    {user.name}</span>
+                                                                    {user.email}</span>
+                                                                </span>
+                                            </div>
+                                        
+                                                        </li>
+                                        </template>
+                                        </template>
+                                        <template for:each={records} for:item="usr">
+                        <!--<div key={usr.Id} class="slds-p-around_small slds-listbox__item" data-id={usr.Id} data-name={usr.Name}
+                                                        onclick={handleSelect}> {usr.Name} - {usr.Email} </div>-->
+
+                            <div key={usr.Id} class="slds-p-around_small slds-grid slds-grid_vertical-align-center dropdown-item" data-id={usr.Id}
+                                                                data-name={usr.Name} data-email={usr.Email} onclick={handleSelect}>
+                                <lightning-icon icon-name="standard:user" size="x-small" class="slds-m-right_small"></lightning-icon>
+                                                                 <!-- One line content -->
+                                        <span class="slds-text-body_regular slds-truncate">
+
+                                        <strong>{usr.Name}</strong>
+
+                                       <span class="slds-m-horizontal_x-small"> - </span>
+
+                                       <span class="slds-text-color_weak">
+                                                 ({usr.Email})
+                                        </span>
+
+                                    </span>
+
+                            </div>
+
+                             
+                                                
+                                        </template>
+                          
+                                         </ul>
+                                        </div>
+                     
+                                        </template> 
+                                        <!-- User Name Card (Displays when a contact is selected/found) -->
+                                      
+            
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> 
+                    <template if:true={isSelected}>
+    <!-- User Card Grid Container -->
+    <div class="slds-box slds-theme_default slds-var-m-top_medium slds-grid slds-grid_vertical-align-center">
+        <!-- Left Side: User Icon -->
+        <div class="slds-col slds-grow-none slds-var-m-right_medium">
+            <lightning-icon icon-name="standard:user" alternative-text="User Icon" size="large"></lightning-icon>
+        </div>
+        
+        <!-- Center Side: Username & Email Workspace -->
+        <div class="slds-col slds-grow-none">
+            <p class="slds-text-heading_medium slds-text-title_caps"><b>{searchKey}</b></p>
+            <p class="slds-text-body_normal slds-text-color_weak">{selecteduserEmail}</p>
+        </div>
+
+        <!-- Far Right Side: Pushed to the end with horizontal padding space -->
+        <div class="slds-col  slds-var-p-horizontal_medium">
+            <template if:false={showAddButton}>
+            <p>Total Initiatives: {initiativeCount}</p>
+        </template>
+
+        <!-- After selection -->
+        
+        </div>
+    </div> 
+
+    
+    <!-- Datatable Block Layout Container -->
+    <div class="slds-var-m-top_large">
+        <template if:true={childContacts.length}>
+            <lightning-datatable
+                key-field="Id"
+                data={childContacts}
+                columns={columns}
+                max-row-selection="1"
+                onrowselection={handleRowSelection}>
+            </lightning-datatable>
+        </template>
+        
+        <template if:false={childContacts.length}>
+            <p class="slds-text-align_center slds-var-m-top_medium">No records found.</p>
+        </template>
+        <div class="slds-border_top slds-var-p-top_medium slds-var-p-horizontal_medium">
+            <h2 class="slds-text-heading_small slds-var-m-bottom_medium">
+                <b>Team Member Action</b> 
+                <lightning-helptext content="Choose an action and search for a user profile to add."></lightning-helptext>
+            </h2>
+
+            <!-- Select Action Picklist -->
+            <div class="slds-form-element slds-var-m-bottom_medium slds-size_1-of-2">
+                <lightning-combobox
+                    name="actionType"
+                    label="Select action"
+                    value={selectedAction2}
+                    options={actionOptionsteam}
+                    onchange={handleActionChange2}>
+                </lightning-combobox>
+            </div>
+            <div class="slds-form-element">
+            <template if:true={isAdd}>
+                <lightning-input
+                 type="search"
+                 label="Search User"
+                 value={searchKeyuser}
+                 onchange={handleSearch}>
+                </lightning-input>
+
+            <!-- Dropdown -->
+                <template if:true={showDropdownuser}>
+               
+              <div class="slds-box slds-m-top_x-small">
+
+                   <template for:each={userList} for:item="user">
+
+                        <div key={user.Id}
+                             class="slds-p-around_small dropdown-item"
+                             data-id={user.Id}
+                             data-name={user.Name}
+                             onclick={handleSelectUser}>
+
+                            <span>{user.Name}</span>
+
+                       </div>
+
+                   </template>
+
+         
+
+              </div>
+                </template>
+
+                <template if:true={showAddButton}>
+            <lightning-button
+                label="Add"
+                variant="brand"
+                onclick={openTeamMemberModal}>
+            </lightning-button>
+                </template>
+         
+                <template if:true={showModal}>
+    <section role="dialog"
+             tabindex="-1"
+             class="slds-modal slds-fade-in-open">
+
+        <div class="slds-modal__container">
+
+            <!-- Header -->
+            <header class="slds-modal__header">
+                <h2 class="slds-text-heading_medium">
+                    Add a Team Member
+                </h2>
+            </header>
+
+            <!-- Body -->
+            <div class="slds-modal__content slds-p-around_medium">
+                <lightning-input label="Name" value={name} onchange={handleName}></lightning-input>
+                <lightning-input label="User Name" value={selectedUserId_user} onchange={handleUserName}></lightning-input>
+
+                <lightning-input label="Initiative"  value={initiativeId} onchange={handleInitiative}></lightning-input>
+
+                <lightning-input label="Discipline"  value={discipline} onchange={handleDiscipline}></lightning-input>
+
+                <lightning-input
+                    label="Resource Time Allocation (%)"
+                    type="number"  value={allocation} onchange={handleAllocation}> 
+                </lightning-input>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="slds-modal__footer">
+
+                <lightning-button
+                    label="Cancel"
+                    onclick={closeModal}>
+                </lightning-button>
+
+                <lightning-button
+                    label="Save"
+                    variant="brand"
+                    onclick={saveRecord}
+                    class="slds-m-left_small">
+                </lightning-button>
+
+            </footer>
+
+        </div>
+    </section>
+
+    <!-- Backdrop -->
+    <div class="slds-backdrop slds-backdrop_open"></div>
+                </template>
+            </template>
+
+           
+            <template if:false={isAdd}>
+            <template if:true={selectedAction2}>
+                   
+                    <lightning-datatable key-field="Id" data={teamMemberData} onrowselection={handleRowSelectionteam} columns={actionscols} onrowaction={handleRowAction}>
+                    </lightning-datatable> 
+            </template>
+            </template>
+  
+             <template if:true={showTransferModal}>
+
+        <section
+            role="dialog"
+            tabindex="-1"
+            class="slds-modal slds-fade-in-open">
+
+            <div class="slds-modal__container">
+
+                <!-- Header -->
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">
+                        Transfer Team Member
+                    </h2>
+                </header>
+
+                <!-- Body -->
+                <div class="slds-modal__content slds-p-around_medium">
+
+                    <lightning-combobox
+                        label="Select New User"
+                        value={selectedUserId}
+                        options={userOptions}
+                        onchange={handleUserChange}>
+                    </lightning-combobox>
+
+                </div>
+
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+
+                    <lightning-button
+                        label="Cancel"
+                        onclick={closeModaluser}>
+                    </lightning-button>
+
+                    <lightning-button
+                        label="Transfer"
+                        variant="brand"
+                        onclick={handleTransfer}
+                        class="slds-m-left_small">
+                    </lightning-button>
+
+                </footer>
+
+            </div>
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+
+    </template>
+</div>
+            </div>
+        </div>
+        </template>
+         
+        </template>
+
+                
+
+                <!-- Step 3 Content: Target & Confirm Placeholder -->
+                <template if:true={isStep3}>
+                    <div class="slds-text-align_center slds-p-around_large">
+                        <p class="slds-text-heading_small">Review settings and confirm your import execution.</p>
+                    </div>
+                </template>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <footer class="slds-modal__footer slds-theme_default">
+                <template if:true={showBack}>
+                    <button class="slds-button slds-button_neutral" onclick={handleBack}>Back</button>
+                </template>
+                <button class="slds-button slds-button_neutral" onclick={handleCancel}>Cancel</button>
+                <button class="slds-button slds-button_brand" onclick={handleNext} disabled={isNextDisabled}>
+                    {nextButtonLabel}
+                </button>
+            </footer>
+
+        </div>
+    </section>
+</template>

@@ -17,7 +17,7 @@ public static void afterundelete(List<Account> listnew){
           List<Account> toUpdate = new List<Account>();
           for (Account acc :listnew) {
                  // upadating a field afterundelete 
-              // toUpdate.add(new Account(Id=acc.id,Status__c ='Re-Active'));
+               toUpdate.add(new Account(Id=acc.id,Status__c ='Re-Active'));
               }
         if (!toUpdate.isEmpty()) {update toUpdate;}	
         system.debug('undeleted');

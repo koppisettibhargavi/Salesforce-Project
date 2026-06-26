@@ -1,0 +1,78 @@
+<template>
+    
+    
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <!-- Header -->
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">
+                        Select Record Type From Custom
+                    </h2>
+                </header>
+
+                <!-- Body -->
+                <div class="slds-modal__content slds-p-around_medium">
+
+                    <lightning-radio-group
+                        name="recordType"
+                        label="Choose Record Type"
+                        options={recordTypeOptions}
+                        value={selectedRecordTypeId}
+                        onchange={handleChange}>
+                    </lightning-radio-group>
+
+                </div>
+
+                <!-- Footer -->
+                <footer class="slds-modal__footer">
+                    <lightning-button 
+                        label="Cancel" 
+                        onclick={closeModal}>
+                    </lightning-button>
+
+                    <lightning-button 
+                        variant="brand"
+                        label="Next"
+                        onclick={handleConfirm}>
+                    </lightning-button>
+                </footer>
+
+            </div>
+       </section>
+
+        <!-- Backdrop -->
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <template if:true={showForm}>
+     <lightning-card title="Create Page">
+    
+    <lightning-record-edit-form
+        object-api-name="Opportunity" record-id="006gL00000PwIFtQAN"  onsuccess={handleSuccessevent}>
+
+        <template for:each={FieldsperRecord} for:item="field">
+            <lightning-input-field
+                key={field}
+                field-name={field}>
+            </lightning-input-field>
+        </template>
+
+        <div class="slds-m-top_medium">
+                <lightning-button type="submit" label="Save" variant="brand"></lightning-button>
+                <lightning-button label="Cancel" class="slds-m-left_small" onclick={handleCancle}></lightning-button>
+        </div>
+       
+    </lightning-record-edit-form>
+
+    <!--<lightning-record-form
+       object-api-name="Opportunity"
+       record-type-id={selectedRecordTypeId}
+       layout-type="Full"
+       mode="edit">
+   </lightning-record-form>-->
+
+      
+    </lightning-card> 
+    </template>
+</template>

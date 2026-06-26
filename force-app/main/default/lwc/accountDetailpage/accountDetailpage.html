@@ -1,0 +1,26 @@
+<template>
+    <div class="slds-grid slds-gutters">
+   <!---<template if:true={objectApiName}> -->
+    <!---<h1>profile :{profileName}</h1>-->
+    <div class="slds-col slds-size_2-of-3">
+      <lightning-card title="Account Details Page">
+    
+    <lightning-record-form
+        object-api-name={objectApiName} record-id={recordId} fields={fields} onsuccess={handleSuccess}>
+        
+         <div class="slds-m-top_medium">
+                <lightning-button type="submit" label="Save" variant="brand"></lightning-button>
+                <lightning-button label="Cancel" class="slds-m-left_small"></lightning-button>
+        </div>
+        
+    </lightning-record-form>
+      </lightning-card>
+    </div>
+    <div class="slds-col slds-size_3-of-4">
+        
+      <lightning-card>
+         <c-data-table-with-search record-id={recordId} object-api-name={objectApiName}></c-data-table-with-search>
+       </lightning-card>
+    </div>
+    </div>
+    </template>

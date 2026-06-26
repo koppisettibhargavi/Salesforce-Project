@@ -1,0 +1,46 @@
+<template>
+    <lightning-card title="Related Record List">
+  
+    <!--<lightning-input label='search' onchange={handlechnage}></lightning-input>-->
+    <div class="slds-m-top_auto slds-text-align_right">
+        <div class="slds-m-right_medium slds-m-bottom_medium">
+           <lightning-button variant="brand" label="new" onclick={openModal} class="slds-m-right_medium slds-m-bottom_medium"></lightning-button>
+        </div>
+           <template if:true={isModalOpen}>
+        <section class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+
+                <!-- Header -->
+                <header class="slds-modal__header">
+                    <h2 class="slds-text-heading_medium">New Contact</h2>
+                </header>
+
+                <!-- Body -->
+                <div class="slds-modal__content slds-p-around_medium">
+
+                    <lightning-record-edit-form
+                        object-api-name="Contact"
+                        onsuccess={handleSuccess}>
+
+                        <lightning-input-field field-name="LastName"></lightning-input-field>
+                        <lightning-input-field field-name="Email"></lightning-input-field>
+                        <lightning-input-field field-name="AccountId" value={recordId}></lightning-input-field>
+
+                        <div class="slds-m-top_medium">
+                            <lightning-button type="submit" label="Save" variant="brand"></lightning-button>
+                            <lightning-button label="Cancel" onclick={closeModal} class="slds-m-left_small"></lightning-button>
+                        </div>
+
+                    </lightning-record-edit-form>
+
+                </div>
+
+            </div>
+        </section>
+
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    </div>
+    <lightning-datatable key-field="Id" data={contactList} columns={colvaluesdynamic} onrowaction={handleRowAction}></lightning-datatable>
+     </lightning-card>
+</template>
