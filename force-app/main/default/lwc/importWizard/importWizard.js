@@ -275,7 +275,7 @@ handleAllocation(event){
            this.dispatchEvent(
             new ShowToastEvent({
                 title: 'Success',
-                message: 'Team Member added successfully',
+                message: 'Team Member added successfully to Team',
                 variant: 'success'
             })
           );
