@@ -1,0 +1,30 @@
+<template>
+     <lightning-button label="button for data" onclick={getsearchDataFun}></lightning-button>
+     <template if:true={searchResult}>
+        <template for:each={searchResult} for:item="sc">
+            <lightning-card key={sc.Id}>
+                 <p>{sc.Name}</p>
+            </lightning-card>
+            
+        </template>
+     
+    </template>
+    <template if:true={error}>
+          <p>{error}</p>
+    </template>
+    <lightning-card>
+        <lightning-input label="search" onchange={searchChange} value={searchText}></lightning-input>
+    <lightning-button label="get Accounts" onclick={getsearchDataResult}></lightning-button>
+     <template if:true={searchResult_s}>  
+        <template for:each={searchResult_s} for:item="sc">
+            <lightning-card key={sc.Id}>
+                 <p>{sc.Name}</p>
+            </lightning-card>
+        </template> 
+     
+    </template>
+    <template if:true={error}>
+          <p>{error}</p>
+    </template>
+    </lightning-card>
+    </template>
